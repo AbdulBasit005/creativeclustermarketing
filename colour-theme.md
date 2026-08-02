@@ -1,0 +1,5 @@
+Crimson red (#8C1F1F) and espresso black (#1A1210) carry the weight — headers, nav, footer, hero backgrounds. This is what makes the site feel premium rather than "small business red."
+Warm ivory (#F5F1E8) replaces plain white everywhere — body backgrounds, cards. It's softer and pairs better with the red than stark white does.
+Sand and taupe gray are your workhorse neutrals for body text, dividers, secondary UI — keeps long-form content readable without competing with the brand red.
+Muted gold (#D4A24E) is the one accent to sprinkle sparingly — icons, small highlights, quote marks, stat callouts. It signals "premium/trusted" the way gold does in finance and luxury branding, without turning the site gaudy.
+Warm coral-red (#C94A38) is your CTA button color — close enough to the logo red to feel on-brand, but punchy enough to stand out from body copy so buttons actually get noticed.

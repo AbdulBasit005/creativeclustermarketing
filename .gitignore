@@ -36,6 +36,18 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local source assets / tooling (optimized copies live in public/)
+/gora/
+/gora-video/
+/tools/
+/tools/**
+/assets/
+*.gz
+.cursor/
+cursor-prompts-creative-clusters-redesign.md
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.vercel

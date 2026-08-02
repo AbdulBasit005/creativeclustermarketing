@@ -1,0 +1,7 @@
+gora/
+gora-video/
+tools/
+assets/
+*.gz
+.cursor/
+cursor-prompts-creative-clusters-redesign.md

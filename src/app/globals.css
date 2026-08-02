@@ -1,26 +1,103 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+  Design tokens — single source of truth: colour-theme.md
+  ---------------------------------------------------------
+  Crimson red + espresso black  -> headers, nav, footer, hero backgrounds
+  Warm ivory                    -> body backgrounds, cards (replaces white)
+  Sand / taupe                  -> secondary text, dividers, muted UI
+  Muted gold                    -> sparing accents (icons, stats, quote marks, CTA outlines)
+  Warm coral-red                -> primary CTA buttons
+
+  Sand (#C9B896) and taupe (#8A7B6B) hexes are derived from the named
+  swatches in colour-theme.md (the file names them without hex values).
+  Coral-deep (#A93A2B) is coral darkened toward crimson for hover states —
+  derived from the palette, not a new hue.
+*/
+
+@theme {
+  --color-crimson: #8c1f1f;
+  --color-espresso: #1a1210;
+  --color-ivory: #f5f1e8;
+  --color-sand: #c9b896;
+  --color-taupe: #8a7b6b;
+  --color-gold: #d4a24e;
+  --color-coral: #c94a38;
+  --color-coral-deep: #a93a2b;
+
+  --text-display: clamp(3rem, 7vw, 7.5rem);
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: -0.02em;
+  --text-h1: clamp(2.5rem, 5vw, 4.5rem);
+  --text-h1--line-height: 1.05;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h2: clamp(2rem, 4vw, 3.25rem);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h3: clamp(1.375rem, 2.5vw, 1.875rem);
+  --text-h3--line-height: 1.2;
+  --text-body: clamp(1rem, 1.1vw, 1.125rem);
+  --text-body--line-height: 1.7;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  /* Hairline dividers derived from the palette (alpha variants, not new hues) */
+  --line-on-dark: color-mix(in srgb, var(--color-ivory) 15%, transparent);
+  --line-on-light: color-mix(in srgb, var(--color-taupe) 30%, transparent);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ivory);
+  color: var(--color-espresso);
+  font-family: var(--font-body);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.hairline {
+  border-color: var(--line-on-dark);
+  border-width: 1px;
+}
+
+.hairline-light {
+  border-color: var(--line-on-light);
+  border-width: 1px;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-espresso);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation-play-state: paused !important;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee var(--marquee-duration, 30s) linear infinite;
 }

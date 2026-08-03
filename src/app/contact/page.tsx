@@ -60,11 +60,11 @@ export default function ContactPage() {
                 </p>
               </address>
 
-              {/* Embedded map — Alexandria, VA */}
+              {/* Embedded map — Virginia, USA */}
               <div className="mt-10 overflow-hidden border border-taupe/40">
                 <iframe
-                  title="Creative Clusters Marketing — Alexandria, Virginia"
-                  src="https://maps.google.com/maps?q=Alexandria%2C%20VA&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                  title="Creative Clusters Marketing — Virginia, USA"
+                  src="https://maps.google.com/maps?q=Virginia%2C%20USA&t=&z=7&ie=UTF8&iwloc=&output=embed"
                   className="aspect-[4/3] w-full border-0 grayscale-[20%]"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"

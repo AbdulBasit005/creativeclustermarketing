@@ -39,7 +39,6 @@ const organizationSchema = {
   telephone: "+17034541448",
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Alexandria",
     addressRegion: "Virginia",
     addressCountry: "US",
   },
@@ -61,7 +60,6 @@ const localBusinessSchema = {
   telephone: "+17034541448",
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Alexandria",
     addressRegion: "Virginia",
     addressCountry: "US",
   },

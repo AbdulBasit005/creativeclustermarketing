@@ -7,6 +7,7 @@ import { useState } from "react";
 
 import { site } from "@/constants/site";
 import { serviceCategories } from "@/content/services";
+import { submitWeb3Form } from "@/lib/web3forms";
 
 /* Brand icons were removed from lucide-react v1, so these are inline SVGs. */
 const brandIconProps = {
@@ -59,16 +60,37 @@ const companyLinks = [
 
 export function Footer() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "error" | "success">("idle");
+  const [status, setStatus] = useState<"idle" | "error" | "failed" | "success">(
+    "idle",
+  );
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const onSubscribe = (e: React.FormEvent) => {
+  const onSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setStatus("error");
       return;
     }
-    setStatus("success");
-    setEmail("");
+    setIsSubmitting(true);
+    try {
+      const result = await submitWeb3Form({
+        email: email.trim(),
+        name: "Newsletter subscriber",
+        subject: "Newsletter signup",
+        message: `${email.trim()} subscribed to the Creative Clusters newsletter.`,
+        from_name: "Website Newsletter",
+      });
+      if (result.success) {
+        setStatus("success");
+        setEmail("");
+      } else {
+        setStatus("failed");
+      }
+    } catch {
+      setStatus("failed");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -223,14 +245,20 @@ export function Footer() {
                 />
                 <button
                   type="submit"
-                  className="h-11 shrink-0 bg-coral px-5 font-display text-xs font-semibold uppercase tracking-wide text-ivory transition-colors hover:bg-coral-deep"
+                  disabled={isSubmitting}
+                  className="h-11 shrink-0 bg-coral px-5 font-display text-xs font-semibold uppercase tracking-wide text-ivory transition-colors hover:bg-coral-deep disabled:opacity-70"
                 >
-                  Subscribe
+                  {isSubmitting ? "Sending…" : "Subscribe"}
                 </button>
               </div>
               {status === "error" && (
                 <p role="alert" className="mt-2 text-xs text-coral">
                   Please enter a valid email address.
+                </p>
+              )}
+              {status === "failed" && (
+                <p role="alert" className="mt-2 text-xs text-coral">
+                  Something went wrong — please try again.
                 </p>
               )}
               {status === "success" && (

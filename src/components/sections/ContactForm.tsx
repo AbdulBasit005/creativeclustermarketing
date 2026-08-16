@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/Button";
-import { submitContactForm } from "@/lib/actions";
+import { submitWeb3Form } from "@/lib/web3forms";
 import {
   contactCategories,
   contactSchema,
@@ -38,15 +38,35 @@ export function ContactForm() {
     formState: { errors, isSubmitting },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
-    defaultValues: { category: "" },
+    defaultValues: { category: "", botcheck: false },
   });
 
   const onSubmit = async (data: ContactFormData) => {
     setServerError(null);
-    const result = await submitContactForm(data);
-    if (result.ok) {
+    if (data.botcheck) {
       setSubmitted(true);
-    } else {
+      return;
+    }
+
+    try {
+      const result = await submitWeb3Form({
+        name: data.name,
+        email: data.email,
+        subject: data.subject,
+        category: data.category,
+        field_of_work: data.fieldOfWork ?? "",
+        message:
+          data.message?.trim() ||
+          `${data.name} inquired about ${data.category}.`,
+        from_name: data.name,
+      });
+
+      if (result.success) {
+        setSubmitted(true);
+      } else {
+        setServerError(result.message || "Something went wrong — please try again.");
+      }
+    } catch {
       setServerError("Something went wrong — please try again.");
     }
   };
@@ -70,6 +90,14 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6">
+      <input
+        type="checkbox"
+        tabIndex={-1}
+        autoComplete="off"
+        className="hidden"
+        aria-hidden="true"
+        {...register("botcheck")}
+      />
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className="mb-2 block text-sm font-medium text-espresso">

@@ -14,6 +14,7 @@ export const contactSchema = z.object({
     .refine((v) => contactCategories.includes(v), "Please choose a category"),
   fieldOfWork: z.string().optional(),
   message: z.string().optional(),
+  botcheck: z.boolean().optional(),
 });
 
 export type ContactFormData = z.infer<typeof contactSchema>;

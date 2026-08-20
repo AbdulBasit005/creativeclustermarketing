@@ -270,23 +270,10 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-ivory/15 pt-8 text-xs text-taupe sm:flex-row sm:items-start">
-          <div className="space-y-2 text-center sm:text-left">
-            <p>
-              © {new Date().getFullYear()} {site.name}. All Rights Reserved.
-            </p>
-            <p>
-              Designed &amp; developed by{" "}
-              <a
-                href={site.agency.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-sand transition-colors hover:text-gold"
-              >
-                {site.agency.name}
-              </a>
-            </p>
-          </div>
+        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-ivory/15 pt-8 text-xs text-taupe sm:flex-row">
+          <p>
+            © {new Date().getFullYear()} {site.name}. All Rights Reserved.
+          </p>
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-ivory">
               Privacy Policy

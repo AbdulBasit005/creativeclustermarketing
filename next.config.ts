@@ -10,7 +10,11 @@ import type { NextConfig } from "next";
  * - Build command: npm run build
  * - Output directory: .next
  * - Entry file: leave empty (Hostinger runs `npm start` → next start)
- *   Or for standalone: node .next/standalone/server.js
+ *   Or for standalone: npm run start:standalone
+ *
+ * Cache note: Hostinger’s CDN can keep HTML forever (s-maxage=1y). That
+ * pairs badly with hashed `/_next/static` chunks after a redeploy → 404s.
+ * Force HTML to revalidate; keep immutable cache only on hashed assets.
  */
 const nextConfig: NextConfig = {
   output: "standalone",
@@ -18,6 +22,49 @@ const nextConfig: NextConfig = {
   compress: true,
   images: {
     formats: ["image/avif", "image/webp"],
+  },
+  async headers() {
+    return [
+      {
+        // Hashed build assets — safe to cache forever
+        source: "/_next/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/images/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
+          },
+        ],
+      },
+      {
+        source: "/videos/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
+          },
+        ],
+      },
+      {
+        // HTML / RSC / pages — never pin for a year on Hostinger CDN
+        // (stale HTML + new chunk hashes = production 404s)
+        source: "/:path((?!_next/static|_next/image|images/|videos/).*)*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=0, must-revalidate",
+          },
+        ],
+      },
+    ];
   },
   async redirects() {
     return [

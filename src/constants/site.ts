@@ -17,10 +17,6 @@ export const site = {
     linkedin: "https://www.linkedin.com/company/creativeclustersmarketingllc",
     tiktok: "#",
   },
-  agency: {
-    name: "Nexelix",
-    url: "https://nexelix.co",
-  },
 } as const;
 
 export const navLinks = [

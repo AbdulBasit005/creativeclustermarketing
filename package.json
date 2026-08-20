@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=20"
+    "node": "20.x"
   },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build && node scripts/prepare-standalone.mjs && next-sitemap",
     "build:dev": "next build --turbopack",
     "start": "next start -H 0.0.0.0",
-    "start:standalone": "node .next/standalone/server.js",
+    "start:standalone": "node scripts/start-hostinger.mjs",
     "lint": "eslint"
   },
   "dependencies": {

@@ -1,67 +1,83 @@
-import { About } from "@/components/sections/About";
+import { BookCta } from "@/components/conversion/BookCta";
+import { ConversionStrip } from "@/components/conversion/ConversionStrip";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Values } from "@/components/sections/Values";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { JsonLd } from "@/components/seo/JsonLd";
+import { aboutLocation, leadership } from "@/content/team";
 import { generateBreadcrumbSchema, getMetadata } from "@/lib/seo";
 
 export const metadata = getMetadata({
-  title: "About Us | Virginia Creative & Marketing Agency",
+  title: "About & Team | Virginia Neuromarketing Agency",
   description:
-    "Creative Clusters Marketing is a Virginia-based team of strategists, creatives, and marketers building brands that perform — beyond design, toward measurable growth.",
+    "Meet Muhammad Ahmed, CEO, and Dr. Ahmed Ejaz, Founder & Chairman. Virginia-based Creative Clusters Marketing serving clients nationwide.",
   path: "/about",
 });
 
 export default function AboutPage() {
   return (
     <>
-      <JsonLd data={generateBreadcrumbSchema([{ name: "About", path: "/about" }])} />
+      <JsonLd
+        data={generateBreadcrumbSchema([{ name: "About", path: "/about" }])}
+      />
 
       <section className="bg-espresso pb-20 pt-40 text-ivory">
         <Container>
           <SectionHeading
             onDark
             as="h1"
-            eyebrow="about us"
-            title="We go beyond design — we build brands that perform"
-            description="A Virginia-based team of strategists, creatives, and marketers turning ideas into impactful digital experiences."
+            eyebrow="about & team"
+            title="Virginia-based. Nationwide reach."
+            description={aboutLocation}
           />
         </Container>
       </section>
 
-      <About />
-
-      <section className="bg-ivory pb-24">
+      <section className="bg-ivory py-24">
         <Container>
           <div className="mx-auto max-w-3xl space-y-6 text-body text-espresso">
             <p>
-              Creative Clusters started with a simple conviction: great creative
-              work should be accountable to results. Too many brands invest in
-              beautiful design that never moves the needle, or in aggressive
-              marketing that erodes the very brand it&apos;s meant to grow. We
-              built our studio to close that gap — pairing strategists who live
-              in the data with creatives who obsess over craft.
+              Creative Clusters Marketing exists to make psychology useful for
+              operators — not as a buzzword, but as a system for attention,
+              trust, and booked conversations.
             </p>
             <p>
-              Today we partner with startups, e-commerce brands, nonprofits, and
-              established companies across the US. Every engagement starts the
-              same way: we listen. We dig into your market, your audience, and
-              your goals before a single pixel is placed. That discipline is why
-              our work doesn&apos;t just look premium — it performs, campaign
-              after campaign.
+              We work with car showrooms, wedding and nikkah businesses,
+              universities, food trucks, and restaurants. Every engagement starts
+              with listening, then a clear offer, then creative and media that
+              respect how people actually decide.
             </p>
-            <p>
-              Whether you need a complete rebrand, a website that converts, or a
-              full-funnel growth engine, you&apos;ll work directly with the
-              people doing the work — no layers, no hand-offs, no surprises.
-            </p>
+          </div>
+
+          <h2 className="mt-20 font-display text-h2 font-bold text-espresso">
+            Leadership
+          </h2>
+          <ul className="mt-10 grid gap-8 md:grid-cols-2">
+            {leadership.map((person) => (
+              <li
+                key={person.name}
+                className="border border-taupe/40 bg-ivory p-8"
+              >
+                <p className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                  {person.role}
+                </p>
+                <h3 className="mt-3 font-display text-h3 font-bold text-espresso">
+                  {person.name}
+                </h3>
+                <p className="mt-4 text-body text-taupe">{person.bio}</p>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-12">
+            <BookCta />
           </div>
         </Container>
       </section>
 
       <Values />
-
+      <ConversionStrip source="about" />
       <FinalCTA />
     </>
   );

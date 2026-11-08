@@ -1,14 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 
+import { BookCta } from "@/components/conversion/BookCta";
+import { ClickToCall } from "@/components/conversion/ClickToCall";
 import { Container } from "@/components/ui/Container";
+import { site } from "@/constants/site";
 
 export function FinalCTA() {
   return (
     <section className="relative overflow-hidden bg-espresso py-32 text-ivory">
-      {/* Animated palette-derived glow — the one flourish before the footer */}
       <motion.div
         aria-hidden="true"
         animate={{ x: [0, 60, -40, 0], y: [0, -40, 30, 0] }}
@@ -17,28 +18,22 @@ export function FinalCTA() {
       />
       <div
         aria-hidden="true"
-        className="absolute left-[5%] bottom-0 h-[20rem] w-[20rem] rounded-full bg-gold/10 blur-3xl"
+        className="absolute bottom-0 left-[5%] h-[20rem] w-[20rem] rounded-full bg-gold/10 blur-3xl"
       />
 
       <Container className="relative">
         <h2 className="max-w-4xl font-display text-display font-bold text-balance">
-          Let&apos;s work{" "}
-          <span className="text-gold underline decoration-coral decoration-4 underline-offset-8">
-            together
-          </span>{" "}
-          today!
+          Ready when you are.
         </h2>
-        <p className="mt-6 text-body text-sand">
-          We&apos;re here to bring your creative visions to life.
+        <p className="mt-6 max-w-xl text-body text-sand">
+          Twenty minutes. Clear next steps. No pitch theater — just a strategy
+          conversation built around how your buyers actually decide.
         </p>
-        <div className="mt-10">
-          <Link
-            href="/contact"
-            className="inline-flex h-14 items-center bg-coral px-8 font-display text-base font-medium uppercase tracking-wide text-ivory transition-colors duration-300 hover:bg-gold hover:text-espresso"
-          >
-            Book a discovery call
-          </Link>
+        <div className="mt-10 flex flex-wrap items-center gap-6">
+          <BookCta />
+          <ClickToCall onDark />
         </div>
+        <p className="mt-6 text-small text-taupe">{site.handle}</p>
       </Container>
     </section>
   );

@@ -21,6 +21,13 @@ const fadeMask = {
     "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
 } as const;
 
+/**
+ * Fixed slot size so logos with different intrinsic dimensions render
+ * at a uniform visual weight (object-contain inside equal boxes).
+ */
+const LOGO_SLOT =
+  "relative flex h-14 w-[7.5rem] shrink-0 items-center justify-center sm:h-16 sm:w-36 md:h-[4.5rem] md:w-40";
+
 export function LogoMarquee({
   logos,
   className,
@@ -29,16 +36,17 @@ export function LogoMarquee({
   const row = (ariaHidden: boolean, keyPrefix: string) => (
     <ul
       aria-hidden={ariaHidden || undefined}
-      className="flex shrink-0 items-center gap-20 md:gap-28"
+      className="flex shrink-0 items-center gap-10 md:gap-14"
     >
       {logos.map((logo, i) => (
-        <li key={`${keyPrefix}-${logo.src}-${i}`} className="shrink-0">
+        <li key={`${keyPrefix}-${logo.src}-${i}`} className={LOGO_SLOT}>
           <Image
             src={logo.src}
             alt={ariaHidden ? "" : logo.alt}
-            width={960}
-            height={384}
-            className="h-32 w-auto object-contain opacity-80 transition-all duration-300 hover:scale-105 hover:opacity-100 sm:h-40 md:h-48"
+            width={160}
+            height={72}
+            sizes="160px"
+            className="max-h-full max-w-full object-contain opacity-75 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
           />
         </li>
       ))}

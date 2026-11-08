@@ -4,27 +4,31 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
+import { BookCta } from "@/components/conversion/BookCta";
+import { GoogleReviews } from "@/components/conversion/GoogleReviews";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Marquee } from "@/components/ui/Marquee";
 
-const headlineLines = ["Your vision.", "Our creativity.", "Real results."];
+const headlineLines = [
+  "People decide",
+  "with emotion.",
+  "We design for that.",
+];
 
 const marqueeWords = [
-  "Strategy",
-  "Branding",
-  "Creative",
-  "Growth",
-  "Performance",
-  "Digital",
-  "Content",
-  "Experience",
+  "Showrooms",
+  "Weddings",
+  "Universities",
+  "Food trucks",
+  "Restaurants",
+  "Neuromarketing",
+  "Booked calls",
 ];
 
 export function Hero() {
   return (
     <section className="relative flex min-h-svh flex-col justify-end overflow-hidden bg-espresso pt-32">
-      {/* Background image + legibility overlay */}
       <Image
         src="/images/hero-bg.png"
         alt=""
@@ -38,7 +42,6 @@ export function Hero() {
         className="absolute inset-0 bg-gradient-to-t from-espresso via-espresso/80 to-crimson/40"
       />
 
-      {/* Floating brand mark — decorative, desktop only */}
       <motion.div
         aria-hidden="true"
         initial={{ opacity: 0, scale: 0.85, y: 24 }}
@@ -46,7 +49,6 @@ export function Hero() {
         transition={{ duration: 0.9, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="pointer-events-none absolute right-[6%] top-1/2 hidden -translate-y-1/2 lg:block xl:right-[10%]"
       >
-        {/* Soft gold glow behind the mark */}
         <div
           className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full"
           style={{
@@ -54,7 +56,6 @@ export function Hero() {
               "radial-gradient(circle, color-mix(in srgb, var(--color-gold) 22%, transparent) 0%, transparent 70%)",
           }}
         />
-        {/* Offset outline ring echoing the square mark */}
         <motion.div
           animate={{ rotate: [0, 3, 0, -3, 0] }}
           transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
@@ -82,7 +83,7 @@ export function Hero() {
           transition={{ duration: 0.5 }}
           className="flex items-center gap-3 font-display text-xs font-semibold uppercase tracking-[0.2em] text-gold"
         >
-          <span aria-hidden="true">{"//"}</span> Virginia-based creative agency
+          <span aria-hidden="true">{"//"}</span> Creative Clusters Marketing
         </motion.p>
 
         <h1 className="mt-6 font-display text-display font-bold text-ivory">
@@ -110,8 +111,8 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.7 }}
           className="mt-6 max-w-xl text-body text-sand"
         >
-          We help brands grow with bold, strategic creative — turning content
-          into powerful digital experiences that connect and convert.
+          Digital marketing agency for Northern Virginia — social, ads, SEO,
+          web, and video that fill calendars. Virginia-based. Nationwide.
         </motion.p>
 
         <motion.div
@@ -120,28 +121,26 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.85 }}
           className="mt-8 flex flex-wrap items-center gap-4"
         >
-          <Button asChild size="lg">
-            <Link href="/contact">Start a Project</Link>
-          </Button>
+          <BookCta />
           <Button asChild size="lg" variant="outline" className="text-ivory">
-            <Link href="/portfolio">See our work</Link>
+            <Link href="/case-studies">See results</Link>
           </Button>
         </motion.div>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 1 }}
-          className="mt-6 text-small text-taupe"
+          className="mt-8"
         >
-          150+ projects delivered for clients across the US
-        </motion.p>
+          <GoogleReviews onDark />
+        </motion.div>
       </Container>
 
       <div className="relative border-t border-ivory/15 py-4">
         <Marquee
           items={marqueeWords}
-          duration={25}
+          duration={28}
           itemClassName="font-display text-sm font-semibold uppercase tracking-[0.25em] text-gold"
         />
       </div>

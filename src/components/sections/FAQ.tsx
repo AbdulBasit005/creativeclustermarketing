@@ -18,7 +18,7 @@ export function FAQ() {
         <SectionHeading
           eyebrow="faq"
           title="Questions, answered"
-          description="Everything you need to know about working with a creative marketing agency."
+          description="Straight answers about our digital marketing agency in Northern Virginia — social, ads, SEO, web, and video."
         />
 
         <div className="mt-12 max-w-3xl border-t border-taupe/30">

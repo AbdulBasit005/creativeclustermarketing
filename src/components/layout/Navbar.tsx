@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/Button";
 import { navLinks, site } from "@/constants/site";
-import { niches } from "@/content/niches";
+import { serviceCategories } from "@/content/services";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { cn } from "@/lib/utils";
 
@@ -71,9 +71,10 @@ export function Navbar() {
           </span>
         </Link>
 
+        {/* Desktop nav */}
         <ul className="hidden items-center gap-8 lg:flex">
           {navLinks.map((link) =>
-            link.label === "Niches" ? (
+            link.label === "Services" ? (
               <li key={link.href} ref={megaRef} className="relative">
                 <button
                   type="button"
@@ -82,7 +83,7 @@ export function Navbar() {
                   onClick={() => setMegaOpen((o) => !o)}
                   className="flex items-center gap-1 text-sm font-medium text-ivory/90 transition-colors hover:text-gold"
                 >
-                  Niches
+                  Services
                   <ChevronDown
                     className={cn(
                       "h-4 w-4 transition-transform",
@@ -98,25 +99,31 @@ export function Navbar() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 8 }}
                       transition={{ duration: 0.18 }}
-                      className="absolute left-1/2 top-full mt-4 w-[520px] -translate-x-1/2 border border-ivory/15 bg-espresso p-6"
+                      className="absolute left-1/2 top-full mt-4 w-[720px] -translate-x-1/2 border border-ivory/15 bg-espresso p-6 shadow-2xl"
                     >
-                      <div className="grid grid-cols-2 gap-2">
-                        {niches.map((niche) => (
+                      <div className="grid grid-cols-3 gap-2">
+                        {serviceCategories.map((cat) => (
                           <Link
-                            key={niche.slug}
-                            href={`/niches/${niche.slug}`}
-                            className="p-3 text-sm font-medium text-ivory/90 transition-colors hover:bg-crimson/40 hover:text-ivory"
+                            key={cat.slug}
+                            href={`/services/${cat.slug}`}
+                            className="group flex items-start gap-3 p-3 transition-colors hover:bg-crimson/40"
                           >
-                            {niche.name}
+                            <cat.icon
+                              className="mt-0.5 h-5 w-5 shrink-0 text-gold"
+                              aria-hidden="true"
+                            />
+                            <span className="text-sm font-medium text-ivory/90 group-hover:text-ivory">
+                              {cat.name}
+                            </span>
                           </Link>
                         ))}
                       </div>
                       <div className="mt-4 border-t border-ivory/15 pt-4">
                         <Link
-                          href="/niches"
+                          href="/services"
                           className="text-sm font-medium text-gold hover:underline"
                         >
-                          View all niches →
+                          View all services →
                         </Link>
                       </div>
                     </motion.div>
@@ -141,12 +148,11 @@ export function Navbar() {
 
         <div className="hidden lg:block">
           <Button asChild size="sm">
-            <Link href="/contact" data-cta="book-strategy-call">
-              Book a strategy call
-            </Link>
+            <Link href="/contact">Get In Touch</Link>
           </Button>
         </div>
 
+        {/* Mobile toggle */}
         <button
           type="button"
           className="text-ivory lg:hidden"
@@ -162,6 +168,7 @@ export function Navbar() {
         </button>
       </nav>
 
+      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -203,9 +210,7 @@ export function Navbar() {
                 className="mt-6"
               >
                 <Button asChild size="lg">
-                  <Link href="/contact" data-cta="book-strategy-call">
-                    {site.ctaLabel}
-                  </Link>
+                  <Link href="/contact">Get In Touch</Link>
                 </Button>
               </motion.li>
             </motion.ul>

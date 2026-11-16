@@ -83,16 +83,6 @@ const nextConfig: NextConfig = {
         destination: "/services",
         permanent: true,
       },
-      {
-        source: "/portfolio",
-        destination: "/case-studies",
-        permanent: true,
-      },
-      {
-        source: "/portfolio/:slug",
-        destination: "/case-studies",
-        permanent: false,
-      },
     ];
   },
 };

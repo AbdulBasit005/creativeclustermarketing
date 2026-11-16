@@ -1,72 +1,55 @@
-import { ConversionStrip } from "@/components/conversion/ConversionStrip";
+import { About } from "@/components/sections/About";
+import { BlogPreview } from "@/components/sections/BlogPreview";
 import { FAQ } from "@/components/sections/FAQ";
+import { FeaturedWork } from "@/components/sections/FeaturedWork";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Hero } from "@/components/sections/Hero";
-import { NicheTiles } from "@/components/sections/NicheTiles";
-import { ResultsProof } from "@/components/sections/ResultsProof";
+import { PricingBand } from "@/components/sections/PricingBand";
+import { Process } from "@/components/sections/Process";
+import { Services } from "@/components/sections/Services";
+import { StatsAwards } from "@/components/sections/StatsAwards";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { TrustedBy } from "@/components/sections/TrustedBy";
+import { Values } from "@/components/sections/Values";
+import { WorkReels } from "@/components/sections/WorkReels";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { LocalServiceAreas } from "@/components/seo/LocalServiceAreas";
-import { AnswerBlock } from "@/components/seo/AnswerBlock";
-import { Container } from "@/components/ui/Container";
 import { faqs } from "@/content/faqs";
-import { allKeywords, primaryKeywords } from "@/content/seoKeywords";
-import { site } from "@/constants/site";
-import {
-  generateFaqSchema,
-  generateServiceSchema,
-  generateSpeakableSchema,
-  getMetadata,
-} from "@/lib/seo";
+import { getMetadata } from "@/lib/seo";
 
 export const metadata = getMetadata({
   title:
-    "Digital Marketing Agency Northern Virginia | Creative Clusters",
+    "Creative Marketing Agency Virginia | Branding, Web & Performance Marketing",
   description:
-    "Full-service digital marketing agency in Northern Virginia — social media, Meta ads, Google ads, local SEO, website design, and videography for restaurants, showrooms, and small businesses. Book a free strategy call.",
+    "Creative Clusters Marketing is a Virginia-based full-service agency for branding, web development, SEO, digital marketing, content, video production, e-commerce, and app development.",
   path: "/",
-  keywords: [...primaryKeywords, ...allKeywords.slice(0, 30)],
 });
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: { "@type": "Answer", text: faq.answer },
+  })),
+};
 
 export default function Home() {
   return (
     <>
-      <JsonLd data={generateFaqSchema(faqs)} />
-      <JsonLd
-        data={generateSpeakableSchema({
-          headline:
-            "Digital marketing agency Northern Virginia | Creative Clusters",
-          description: site.description,
-          path: "/",
-        })}
-      />
-      <JsonLd
-        data={generateServiceSchema([
-          "Social media marketing",
-          "Meta and Facebook ads management",
-          "Google ads management",
-          "Local SEO services",
-          "Website design and development",
-          "Commercial videography",
-          "Restaurant marketing",
-          "Automotive social media marketing",
-        ])}
-      />
+      <JsonLd data={faqSchema} />
       <Hero />
-      <section className="bg-ivory pb-4 pt-12">
-        <Container>
-          <AnswerBlock
-            answer="Creative Clusters Marketing is a creative marketing agency and full service marketing agency in Virginia — a digital marketing agency for Northern Virginia businesses that need social media management, paid ads, local SEO, website design, and short-form video production that leads to booked calls."
-          />
-        </Container>
-      </section>
-      <NicheTiles />
-      <ResultsProof />
+      <WorkReels />
       <TrustedBy />
+      <About />
+      <Services />
+      <Values />
+      <Process />
+      <FeaturedWork />
+      <StatsAwards />
+      <PricingBand />
       <Testimonials />
-      <LocalServiceAreas />
-      <ConversionStrip source="homepage" headline={site.ctaLabel} />
+      <BlogPreview />
       <FAQ />
       <FinalCTA />
     </>

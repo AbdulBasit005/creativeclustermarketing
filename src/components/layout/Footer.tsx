@@ -5,8 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-import { footerExtraLinks, site } from "@/constants/site";
-import { niches } from "@/content/niches";
+import { site } from "@/constants/site";
 import { serviceCategories } from "@/content/services";
 import { submitWeb3Form } from "@/lib/web3forms";
 
@@ -53,11 +52,10 @@ function TiktokIcon() {
 
 const companyLinks = [
   { label: "About", href: "/about" },
-  { label: "Pricing", href: "/pricing" },
-  { label: "Case Studies", href: "/case-studies" },
-  { label: "Book a Call", href: "/contact" },
+  { label: "Portfolio", href: "/portfolio" },
   { label: "Careers", href: "/careers" },
   { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function Footer() {
@@ -180,26 +178,15 @@ export function Footer() {
                 <TiktokIcon />
               </a>
             </div>
-            <p className="mt-4 text-sm text-sand">{site.handle}</p>
           </div>
 
-          {/* Niches */}
-          <nav aria-label="Niches">
+          {/* Services — all categories from services.md */}
+          <nav aria-label="Services">
             <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-gold">
-              Niches
+              Services
             </h2>
             <ul className="mt-5 space-y-2.5">
-              {niches.map((niche) => (
-                <li key={niche.slug}>
-                  <Link
-                    href={`/niches/${niche.slug}`}
-                    className="text-sm text-sand transition-colors hover:text-ivory"
-                  >
-                    {niche.name}
-                  </Link>
-                </li>
-              ))}
-              {serviceCategories.slice(0, 3).map((cat) => (
+              {serviceCategories.map((cat) => (
                 <li key={cat.slug}>
                   <Link
                     href={`/services/${cat.slug}`}
@@ -219,16 +206,6 @@ export function Footer() {
             </h2>
             <ul className="mt-5 space-y-2.5">
               {companyLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-sand transition-colors hover:text-ivory"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-              {footerExtraLinks.slice(0, 8).map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
